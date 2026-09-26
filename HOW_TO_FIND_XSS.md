@@ -24,7 +24,9 @@ This guide shows you HOW TO FIND IT systematically.
 ### Example from DVWA:
 
 Found at: http://dvwa.local/vulnerabilities/xss_r/
+
 Input field: "name" parameter in URL
+
 Type: Query string parameter
 
 
@@ -48,8 +50,11 @@ Type: Query string parameter
 ### DVWA Example:
 
 Input: hello
+
 Output on page: "Hello hello"
+
 Location: Inside <pre> tags
+
 Encoding: None (raw output)
 
 
@@ -71,7 +76,9 @@ Encoding: None (raw output)
 ### DVWA Reflected XSS Test:
 
 Input:
+
 Result: Angle bracket appears in output
+
 Conclusion: No filtering - likely vulnerable
 
 ---
@@ -128,22 +135,19 @@ Payload Strategy: Use <img> or <script> tags
 
 **Different contexts need different payloads:**
 
-### For HTML Body:
-
----
-
-## STEP 5: CRAFT PAYLOAD FOR THE CONTEXT
-
-**Different contexts need different payloads:**
-
 For HTML Body:
 <img src=x onerror="alert('XSS')"> ````
+
 For HTML Attribute:
 " onmouseover="alert('XSS')" x="
+
 For JavaScript:
 "; alert('XSS'); //
+
 For URL:
 javascript:alert('XSS')
+
+---
 
 STEP 6: TEST PAYLOAD
 
@@ -167,25 +171,38 @@ Method: URL parameter
 Result: Alert box appeared
 Conclusion: VULNERABLE
 
+---
+
 STEP 7: DETERMINE PAYLOAD TYPE
 
 Understand what type of XSS you found:
 
 Reflected XSS
-Payload in URL
-Server echoes it back
-Triggers immediately
+
+1.Payload in URL
+2.Server echoes it back
+3.Triggers immediately
+
 Test: Change URL parameter, alert changes
+
+
 Stored XSS
-Payload submitted via form
-Stored in database
-Triggers for all users
+
+1.Payload submitted via form
+2.Stored in database
+3.Triggers for all users
+
 Test: Refresh page, payload still triggers
+
+
 DOM-based XSS
-Payload in URL
-JavaScript processes it
-No server response needed
+
+1.Payload in URL
+2.JavaScript processes it
+3.No server response needed
+
 Test: Check Network tab - no server reflection
+
 DVWA Examples:
 
 Reflected:
@@ -209,6 +226,9 @@ URL: ?default=<img src=x onerror=alert('XSS')>
 Result: Alert triggered by JavaScript
 Payload in server response: NO
 Type: DOM ✓
+
+---
+
 STEP 8: CONFIRM THE EXPLOIT
 
 Make sure it's really XSS, not something else:
@@ -219,12 +239,16 @@ Checklist:
  Payload NOT HTML-encoded (e.g., &lt; is safe, < is vulnerable)
  No Content-Security-Policy blocking
  Multiple payloads work, not just one
+
 DVWA Confirmation:
 ✓ Alert appeared
 ✓ <script> tag in HTML source (not &lt;script&gt;)
 ✓ No CSP headers
 ✓ Multiple payloads triggered alerts
 Conclusion: Confirmed Vulnerable
+
+---
+
 STEP 9: DOCUMENT YOUR FINDINGS
 
 Record exactly what you found for the report:
@@ -237,6 +261,7 @@ Payload: [exact payload used]
 Context: [HTML body/attribute/JavaScript/URL]
 Severity: [HIGH/MEDIUM/LOW]
 Screenshot: [attach proof]
+
 DVWA Documentation:
 Vulnerability: Reflected XSS
 URL: http://dvwa.local/vulnerabilities/xss_r/?name=%3Cscript%3Ealert('XSS')%3C/script%3E
@@ -245,6 +270,9 @@ Payload: <script>alert('XSS')</script>
 Context: HTML body (inside <pre> tag)
 Severity: MEDIUM (requires user to click link)
 Screenshot: alert_box.png, burp_response.png
+
+---
+
 STEP 10: LOOK FOR DEFENSES (Don't Stop After First Find)
 
 Real apps often have multiple layers:
@@ -253,16 +281,19 @@ Test for Encoding:
 Input: 
 Output: &lt;
 Conclusion: HTML encoding active (safer)
+
 Test for Filtering:
 Input: <script>alert('XSS')</script>
 Output: alert('XSS')  [<script> removed]
 Conclusion: Tag filtering active
 Try Bypass: <img src=x onerror=alert('XSS')>
+
 Test for WAF (Web Application Firewall):
 Input: <iframe src="javascript:alert('XSS')">
 Output: Error page or blocked
 Conclusion: WAF present
 Action: Try URL encoding, case variations, etc.
+
 COMMON MISTAKES TO AVOID
 
 ❌ Don't: Assume payload failed if alert doesn't pop
@@ -289,6 +320,7 @@ Step 7: Determined: REFLECTED (URL echoed by server)
 Step 8: Confirmed: Unencoded, multiple payloads work
 Step 9: Documented: Full URL, payload, screenshot
 Result: ✓ VULNERABLE
+
 Finding Stored XSS:
 Step 1: Found form with "name" and "message" fields
 Step 2: Tested with normal input "hello" → stored in DB
@@ -300,6 +332,7 @@ Step 7: Determined: STORED (refreshing page re-triggers alert)
 Step 8: Confirmed: Alert triggers for all users viewing page
 Step 9: Documented: Form location, payload, persistent behavior
 Result: ✓ VULNERABLE
+
 Finding DOM XSS:
 Step 1: Found XSS (DOM) page with dropdown
 Step 2: Tested form with normal input → nothing special
@@ -311,6 +344,9 @@ Step 7: Determined: DOM (no form submission, URL only)
 Step 8: Confirmed: JavaScript processes parameter directly
 Step 9: Documented: URL injection point, no form involved
 Result: ✓ VULNERABLE
+
+---
+
 SUMMARY: THE XSS HUNTING PROCESS
 Find input fields → Identify ALL places users can input data
 Test normal input → Understand how app processes data
@@ -323,4 +359,4 @@ Confirm vulnerable → Multiple proofs, not just luck
 Document it → Full details for report
 Look for defenses → What stops you? Can you bypass?
 
-Apply this process to ANY web app and you'll find XSS! ✓
+Apply this process to ANY web app and you'll find XSS!(if present) ✓
