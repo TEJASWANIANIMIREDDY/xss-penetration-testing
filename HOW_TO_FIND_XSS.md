@@ -147,6 +147,7 @@ For JavaScript:
 For URL:
 javascript:alert('XSS')
 
+
 ---
 
 ##STEP 6: TEST PAYLOAD
