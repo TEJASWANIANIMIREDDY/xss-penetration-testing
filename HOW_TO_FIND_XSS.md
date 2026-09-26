@@ -163,9 +163,13 @@ Does alert pop up? → VULNERABLE ✓
 ### Using Burp Suite Repeater:
 
 1.Capture request in Proxy
+
 2.Send to Repeater
+
 3.Modify parameter with payload
+
 4.Check response for unencoded payload
+
 5.If unencoded → VULNERABLE ✓
 
 ### DVWA Testing:
@@ -261,21 +265,32 @@ Record exactly what you found for the report:
 ### Template:
 
 **Vulnerability:** XSS (Type: REFLECTED/STORED/DOM)
+
 **URL:** [exact vulnerable URL]
+
 **Parameter:** [which field is vulnerable]
+
 **Payload:** [exact payload used]
+
 **Context:** [HTML body/attribute/JavaScript/URL]
+
 **Severity:** [HIGH/MEDIUM/LOW]
+
 **Screenshot:** [attach proof]
 
 ### DVWA Documentation:
 
 **Vulnerability:** Reflected XSS
 **URL:** `http://dvwa.local/vulnerabilities/xss_r/?name=%3Cscript%3Ealert('XSS')%3C/script%3E`
+
 **Parameter:** name
+
 **Payload:** `<script>alert('XSS')</script>`
+
 **Context:** HTML body (inside `<pre>` tag)
+
 **Severity:** MEDIUM (requires user to click link)
+
 **Screenshot:** alert_box.png, burp_response.png
 
 ---
@@ -323,13 +338,21 @@ Real apps often have multiple layers:
 ### Finding Reflected XSS:
 
 **Step 1:** Found URL parameter "name" in /xss_r/
+
 **Step 2:** Tested with "hello" → appeared on page
+
 **Step 3:** Tested with "<" → appeared in output
+
 **Step 4:** Context: HTML body (inside `<pre>`)
+
 **Step 5:** Payload: `<script>alert('XSS')</script>`
+
 **Step 6:** Submitted → Alert popped
+
 **Step 7:** Determined: REFLECTED (URL echoed by server)
+
 **Step 8:** Confirmed: Unencoded, multiple payloads work
+
 **Step 9:** Documented: Full URL, payload, screenshot
 
 **Result:** ✓ VULNERABLE
