@@ -163,16 +163,23 @@ Does alert pop up? → VULNERABLE ✓
 ### Using Burp Suite Repeater:
 
 Capture request in Proxy
+
 Send to Repeater
+
 Modify parameter with payload
+
 Check response for unencoded payload
+
 If unencoded → VULNERABLE ✓
 
 ### DVWA Testing:
 
 Payload: `<script>alert('XSS')</script>`
+
 Method: URL parameter
+
 Result: Alert box appeared
+
 Conclusion: VULNERABLE
 
 ---
@@ -260,21 +267,33 @@ Record exactly what you found for the report:
 ### Template:
 
 Vulnerability: XSS (Type: REFLECTED/STORED/DOM)
+
 URL: [exact vulnerable URL]
+
 Parameter: [which field is vulnerable]
+
 Payload: [exact payload used]
+
 Context: [HTML body/attribute/JavaScript/URL]
+
 Severity: [HIGH/MEDIUM/LOW]
+
 Screenshot: [attach proof]
 
 ### DVWA Documentation:
 
 Vulnerability: Reflected XSS
+
 URL: `http://dvwa.local/vulnerabilities/xss_r/?name=%3Cscript%3Ealert('XSS')%3C/script%3E`
+
 Parameter: name
+
 Payload: `<script>alert('XSS')</script>`
+
 Context: HTML body (inside `<pre>` tag)
+
 Severity: MEDIUM (requires user to click link)
+
 Screenshot: alert_box.png, burp_response.png
 
 ---
@@ -321,8 +340,8 @@ Action: Try URL encoding, case variations, etc.
 
 ### Finding Reflected XSS:
 
-1. Step 1: Found URL parameter "name" in /xss_r/
-2. Step 2: Tested with "hello" → appeared on page
+1.  Found URL parameter "name" in /xss_r/
+2.  Tested with "hello" → appeared on page
 3. Step 3: Tested with "<" → appeared in output
 4. Step 4: Context: HTML body (inside )
 5. Step 5: Payload: alert('XSS')
@@ -363,14 +382,24 @@ Action: Try URL encoding, case variations, etc.
 ## SUMMARY: THE XSS HUNTING PROCESS
 
 Find input fields → Identify ALL places users can input data
+
 Test normal input → Understand how app processes data
+
 Test special chars → See if anything breaks
+
 Identify context → Where does input appear? (body/attr/JS)
+
 Choose payload → Match payload to context
+
 Test payload → Does it execute?
+
 Determine type → Reflected/Stored/DOM?
+
 Confirm vulnerable → Multiple proofs, not just luck
+
 Document it → Full details for report
+
 Look for defenses → What stops you? Can you bypass?
+
 
 Apply this process to ANY web app and you'll find XSS!(if present) ✓
