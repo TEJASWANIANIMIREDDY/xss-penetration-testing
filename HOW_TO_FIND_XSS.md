@@ -53,7 +53,7 @@ Input: hello
 
 Output on page: "Hello hello"
 
-Location: Inside <pre> tags
+Location: Inside /*<pre>*/ tags
 
 Encoding: None (raw output)
 
