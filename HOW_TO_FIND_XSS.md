@@ -107,7 +107,7 @@ Conclusion: No filtering - likely vulnerable
   var search = "USER_INPUT_HERE";
 </script>
 ```
-**Test:** `"; alert('XSS'); //` - can you break out of string?
+**Test:** `"; alert('XSS'); //' - can you break out of string?
 
 #### D) URL Context
 ```html
