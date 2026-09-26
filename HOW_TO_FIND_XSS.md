@@ -163,14 +163,11 @@ Does alert pop up? → VULNERABLE ✓
 ### Using Burp Suite Repeater:
 
 1.Capture request in Proxy
-
 2.Send to Repeater
-
 3.Modify parameter with payload
-
 4.Check response for unencoded payload
-
 5.If unencoded → VULNERABLE ✓
+
 
 ### DVWA Testing:
 
@@ -214,23 +211,33 @@ Understand what type of XSS you found:
 **Reflected:**
 
 **URL:** `?name=<img src=x onerror=alert('XSS')>`
+
 **Result:** Alert on first load
+
 **Payload in server response:** YES
+
 **Type:** REFLECTED ✓
 
 **Stored:**
 
 **Form:** Name + Message
+
 **Action:** Submit comment with payload
+
 **Result:** Alert on page reload for all users
+
 **Payload in database:** YES
+
 **Type:** STORED ✓
 
 **DOM:**
 
 **URL:** `?default=<img src=x onerror=alert('XSS')>`
+
 **Result:** Alert triggered by JavaScript
+
 **Payload in server response:** NO
+
 **Type:** DOM ✓
 
 ---
@@ -338,21 +345,13 @@ Real apps often have multiple layers:
 ### Finding Reflected XSS:
 
 **Step 1:** Found URL parameter "name" in /xss_r/
-
 **Step 2:** Tested with "hello" → appeared on page
-
 **Step 3:** Tested with "<" → appeared in output
-
 **Step 4:** Context: HTML body (inside `<pre>`)
-
 **Step 5:** Payload: `<script>alert('XSS')</script>`
-
 **Step 6:** Submitted → Alert popped
-
 **Step 7:** Determined: REFLECTED (URL echoed by server)
-
 **Step 8:** Confirmed: Unencoded, multiple payloads work
-
 **Step 9:** Documented: Full URL, payload, screenshot
 
 **Result:** ✓ VULNERABLE
@@ -390,14 +389,24 @@ Real apps often have multiple layers:
 ## SUMMARY: THE XSS HUNTING PROCESS
 
 1.Find input fields → Identify ALL places users can input data
+
+
 2.Test normal input → Understand how app processes data
+
 3.Test special chars → See if anything breaks
+
 4.Identify context → Where does input appear? (body/attr/JS)
+
 5.Choose payload → Match payload to context
+
 6.Test payload → Does it execute?
+
 7.Determine type → Reflected/Stored/DOM?
+
 8.Confirm vulnerable → Multiple proofs, not just luck
+
 9.Document it → Full details for report
+
 10.Look for defenses → What stops you? Can you bypass?
 
 Apply this process to ANY web app and you'll find XSS!(if present) ✓
