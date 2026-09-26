@@ -162,25 +162,18 @@ Does alert pop up? → VULNERABLE ✓
 
 ### Using Burp Suite Repeater:
 
-Capture request in Proxy
-
-Send to Repeater
-
-Modify parameter with payload
-
-Check response for unencoded payload
-
-If unencoded → VULNERABLE ✓
+- Capture request in Proxy
+- Send to Repeater
+- Modify parameter with payload
+- Check response for unencoded payload
+- If unencoded → VULNERABLE ✓
 
 ### DVWA Testing:
 
-Payload: `<script>alert('XSS')</script>`
-
-Method: URL parameter
-
-Result: Alert box appeared
-
-Conclusion: VULNERABLE
+- Payload: `<script>alert('XSS')</script>`
+-Method: URL parameter
+-Result: Alert box appeared
+-Conclusion: VULNERABLE
 
 ---
 
@@ -217,23 +210,33 @@ Test: Check Network tab - no server reflection
 **Reflected:**
 
 URL: `?name=<img src=x onerror=alert('XSS')>`
+
 Result: Alert on first load
+
 Payload in server response: YES
+
 Type: REFLECTED ✓
 
 **Stored:**
 
 Form: Name + Message
+
 Action: Submit comment with payload
+
 Result: Alert on page reload for all users
+
 Payload in database: YES
+
 Type: STORED ✓
 
 **DOM:**
 
 URL: `?default=<img src=x onerror=alert('XSS')>`
+
 Result: Alert triggered by JavaScript
+
 Payload in server response: NO
+
 Type: DOM ✓
 
 ---
@@ -266,19 +269,13 @@ Record exactly what you found for the report:
 
 ### Template:
 
-Vulnerability: XSS (Type: REFLECTED/STORED/DOM)
-
-URL: [exact vulnerable URL]
-
-Parameter: [which field is vulnerable]
-
-Payload: [exact payload used]
-
-Context: [HTML body/attribute/JavaScript/URL]
-
-Severity: [HIGH/MEDIUM/LOW]
-
-Screenshot: [attach proof]
+-Vulnerability: XSS (Type: REFLECTED/STORED/DOM)
+-URL: [exact vulnerable URL]
+-Parameter: [which field is vulnerable]
+-Payload: [exact payload used]
+-Context: [HTML body/attribute/JavaScript/URL]
+-Severity: [HIGH/MEDIUM/LOW]
+-Screenshot: [attach proof]
 
 ### DVWA Documentation:
 
@@ -304,23 +301,23 @@ Real apps often have multiple layers:
 
 ### Test for Encoding:
 
-Input:
-Output: `&lt;`
-Conclusion: HTML encoding active (safer)
+-Input:
+-Output: `&lt;`
+-Conclusion: HTML encoding active (safer)
 
 ### Test for Filtering:
 
-Input: `<script>alert('XSS')</script>`
-Output: `alert('XSS')` [ removed]
-Conclusion: Tag filtering active
-Try Bypass: `<img src=x onerror=alert('XSS')>`
+-Input: `<script>alert('XSS')</script>`
+-Output: `alert('XSS')` [ removed]
+-Conclusion: Tag filtering active
+-Try Bypass: `<img src=x onerror=alert('XSS')>`
 
 ### Test for WAF (Web Application Firewall):
 
-Input: `<iframe src="javascript:alert('XSS')">`
-Output: Error page or blocked
-Conclusion: WAF present
-Action: Try URL encoding, case variations, etc.
+-Input: `<iframe src="javascript:alert('XSS')">`
+-Output: Error page or blocked
+-Conclusion: WAF present
+-Action: Try URL encoding, case variations, etc.
 
 ## COMMON MISTAKES TO AVOID
 
@@ -340,16 +337,16 @@ Action: Try URL encoding, case variations, etc.
 
 ### Finding Reflected XSS:
 
-1.  Found URL parameter "name" in /xss_r/
-2.  Tested with "hello" → appeared on page
-3. Step 3: Tested with "<" → appeared in output
-4. Step 4: Context: HTML body (inside )
-5. Step 5: Payload: alert('XSS')
-6. Step 6: Submitted → Alert popped
-7. Step 7: Determined: REFLECTED (URL echoed by server)
-8. Step 8: Confirmed: Unencoded, multiple payloads work
-9. Step 9: Documented: Full URL, payload, screenshot
-10. Result: ✓ VULNERABLE
+1. Found URL parameter "name" in /xss_r/
+2. Tested with "hello" → appeared on page
+3. Tested with "<" → appeared in output
+4. Context: HTML body (inside )
+5. Payload: alert('XSS')
+6. Submitted → Alert popped
+7. Determined: REFLECTED (URL echoed by server)
+8. Confirmed: Unencoded, multiple payloads work
+9. Documented: Full URL, payload, screenshot
+10.Result: ✓ VULNERABLE
 
 ### Finding Stored XSS:
 
@@ -381,25 +378,16 @@ Action: Try URL encoding, case variations, etc.
 
 ## SUMMARY: THE XSS HUNTING PROCESS
 
-Find input fields → Identify ALL places users can input data
-
-Test normal input → Understand how app processes data
-
-Test special chars → See if anything breaks
-
-Identify context → Where does input appear? (body/attr/JS)
-
-Choose payload → Match payload to context
-
-Test payload → Does it execute?
-
-Determine type → Reflected/Stored/DOM?
-
-Confirm vulnerable → Multiple proofs, not just luck
-
-Document it → Full details for report
-
-Look for defenses → What stops you? Can you bypass?
+-Find input fields → Identify ALL places users can input data
+-Test normal input → Understand how app processes data
+-Test special chars → See if anything breaks
+-Identify context → Where does input appear? (body/attr/JS)
+-Choose payload → Match payload to context
+-Test payload → Does it execute?
+-Determine type → Reflected/Stored/DOM?
+-Confirm vulnerable → Multiple proofs, not just luck
+-Document it → Full details for report
+-Look for defenses → What stops you? Can you bypass?
 
 
 Apply this process to ANY web app and you'll find XSS!(if present) ✓
