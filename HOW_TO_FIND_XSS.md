@@ -126,7 +126,7 @@ Conclusion: No filtering - likely vulnerable
 
 Input: hello
 HTML Output: <pre>Hello hello</pre>
-Context: HTML body (inside <pre> tag)
+Context: HTML body (inside `<pre>` tag)
 Payload Strategy: Use <img> or <script> tags
 
 ---
