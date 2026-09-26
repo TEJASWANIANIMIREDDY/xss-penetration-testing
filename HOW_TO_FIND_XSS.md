@@ -162,11 +162,11 @@ Does alert pop up? → VULNERABLE ✓
 
 ### Using Burp Suite Repeater:
 
-Capture request in Proxy
-Send to Repeater
-Modify parameter with payload
-Check response for unencoded payload
-If unencoded → VULNERABLE ✓
+1.Capture request in Proxy
+2.Send to Repeater
+3.Modify parameter with payload
+4.Check response for unencoded payload
+5.If unencoded → VULNERABLE ✓
 
 ### DVWA Testing:
 
@@ -366,15 +366,15 @@ Real apps often have multiple layers:
 
 ## SUMMARY: THE XSS HUNTING PROCESS
 
-Find input fields → Identify ALL places users can input data
-Test normal input → Understand how app processes data
-Test special chars → See if anything breaks
-Identify context → Where does input appear? (body/attr/JS)
-Choose payload → Match payload to context
-Test payload → Does it execute?
-Determine type → Reflected/Stored/DOM?
-Confirm vulnerable → Multiple proofs, not just luck
-Document it → Full details for report
-Look for defenses → What stops you? Can you bypass?
+1.Find input fields → Identify ALL places users can input data
+2.Test normal input → Understand how app processes data
+3.Test special chars → See if anything breaks
+4.Identify context → Where does input appear? (body/attr/JS)
+5.Choose payload → Match payload to context
+6.Test payload → Does it execute?
+7.Determine type → Reflected/Stored/DOM?
+8.Confirm vulnerable → Multiple proofs, not just luck
+9.Document it → Full details for report
+10.Look for defenses → What stops you? Can you bypass?
 
 Apply this process to ANY web app and you'll find XSS!(if present) ✓
