@@ -237,11 +237,11 @@ Make sure it's really XSS, not something else:
 
 ### Checklist:
 
-* Alert box (or console output) confirmed
-* Payload appears in page source (Reflected/Stored)
-* Payload NOT HTML-encoded (e.g., `&lt;` is safe, `<` is vulnerable)
-* No Content-Security-Policy blocking
-* Multiple payloads work, not just one
+- Alert box (or console output) confirmed
+- Payload appears in page source (Reflected/Stored)
+- Payload NOT HTML-encoded (e.g., `&lt;` is safe, `<` is vulnerable)
+- No Content-Security-Policy blocking
+- Multiple payloads work, not just one
 
 ### DVWA Confirmation:
 
@@ -292,7 +292,7 @@ Conclusion: HTML encoding active (safer)
 ### Test for Filtering:
 
 Input: `<script>alert('XSS')</script>`
-Output: `alert('XSS')`  [<script> removed]
+Output: `alert('XSS')` [ removed]
 Conclusion: Tag filtering active
 Try Bypass: `<img src=x onerror=alert('XSS')>`
 
@@ -324,8 +324,8 @@ Action: Try URL encoding, case variations, etc.
 1. Step 1: Found URL parameter "name" in /xss_r/
 2. Step 2: Tested with "hello" → appeared on page
 3. Step 3: Tested with "<" → appeared in output
-4. Step 4: Context: HTML body (inside `<pre>`)
-5. Step 5: Payload: `<script>alert('XSS')</script>`
+4. Step 4: Context: HTML body (inside )
+5. Step 5: Payload: alert('XSS')
 6. Step 6: Submitted → Alert popped
 7. Step 7: Determined: REFLECTED (URL echoed by server)
 8. Step 8: Confirmed: Unencoded, multiple payloads work
@@ -338,7 +338,7 @@ Action: Try URL encoding, case variations, etc.
 2. Step 2: Tested with normal input "hello" → stored in DB
 3. Step 3: Tested with "<" → appeared in output
 4. Step 4: Context: HTML body (inside comment display)
-5. Step 5: Payload: `<img src=x onerror="alert('Stored XSS')">`
+5. Step 5: Payload:
 6. Step 6: Submitted form → Alert popped immediately
 7. Step 7: Determined: STORED (refreshing page re-triggers alert)
 8. Step 8: Confirmed: Alert triggers for all users viewing page
@@ -351,7 +351,7 @@ Action: Try URL encoding, case variations, etc.
 2. Step 2: Tested form with normal input → nothing special
 3. Step 3: Tested URL parameter: `?default=hello`
 4. Step 4: Context: JavaScript processes URL parameter
-5. Step 5: Payload: `<img src=x onerror="alert('DOM XSS')">`
+5. Step 5: Payload:
 6. Step 6: Injected in URL → Alert popped
 7. Step 7: Determined: DOM (no form submission, URL only)
 8. Step 8: Confirmed: JavaScript processes parameter directly
