@@ -339,7 +339,7 @@ data:text/html,<script>alert('XSS')</script>
 Is input in HTML body?
 ├─ YES
 │  ├─ <script> tag filtered?
-│  │  ├─ YES → Try <img src=x onerror="alert()">
+│  │  ├─ YES → Try `<img src=x onerror="alert()">`
 │  │  └─ NO → Try <script>alert('XSS')</script>
 │  └─ Quote marks in output?
 │     └─ Check for encoding
@@ -361,7 +361,6 @@ Is input in HTML body?
 │
 └─ Is input in URL?
    └─ Use: javascript:alert('XSS')
-
 ---
 
 ## ENCODING REFERENCE
