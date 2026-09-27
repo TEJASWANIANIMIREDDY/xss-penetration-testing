@@ -375,38 +375,29 @@ Real apps often have multiple layers:
 
 ### Finding Stored XSS:
 
-1.Found form with "name" and "message" fields
-
-2.Tested with normal input "hello" → stored in DB
-
-3.Tested with "<" → appeared in output
-
-4.Context: HTML body (inside comment display)
-
-5.Payload:
-
-6.Submitted form → Alert popped immediately
-
-7.Determined: STORED (refreshing page re-triggers alert)
-
-8.Confirmed: Alert triggers for all users viewing page
-
-9.Documented: Form location, payload, persistent behavior
-
+1. Found form with "name" and "message" fields
+2. Tested with normal input "hello" → stored in DB
+3. Tested with "<" → appeared in output
+4. Context: HTML body (inside comment display)
+5. Payload:
+6. Submitted form → Alert popped immediately
+7. Determined: STORED (refreshing page re-triggers alert)
+8. Confirmed: Alert triggers for all users viewing page
+9. Documented: Form location, payload, persistent behavior
 10.Result: ✓ VULNERABLE
 
 
 ### Finding DOM XSS:
 
-1.Found XSS (DOM) page with dropdown
-2.Tested form with normal input → nothing special
-3.Tested URL parameter: `?default=hello`
-4.Context: JavaScript processes URL parameter
-5.Payload:
-6.Injected in URL → Alert popped
-7.Determined: DOM (no form submission, URL only)
-8.Confirmed: JavaScript processes parameter directly
-9.Documented: URL injection point, no form involved
+1. Found XSS (DOM) page with dropdown
+2. Tested form with normal input → nothing special
+3. Tested URL parameter: `?default=hello`
+4. Context: JavaScript processes URL parameter
+5. Payload:
+6. Injected in URL → Alert popped
+7. Determined: DOM (no form submission, URL only)
+8. Confirmed: JavaScript processes parameter directly
+9. Documented: URL injection point, no form involved
 10.Result: ✓ VULNERABLE
 
 ---
