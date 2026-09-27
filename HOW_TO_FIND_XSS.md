@@ -170,13 +170,13 @@ Does alert pop up? → VULNERABLE ✓
 
 ### DVWA Testing:
 
-- Payload: `<script>alert('XSS')</script>`
+Payload: `<script>alert('XSS')</script>`
   
--Method: URL parameter
+Method: URL parameter
 
--Result: Alert box appeared
+Result: Alert box appeared
 
--Conclusion: VULNERABLE
+Conclusion: VULNERABLE
 
 ---
 
@@ -259,9 +259,13 @@ Make sure it's really XSS, not something else:
 ### DVWA Confirmation:
 
 ✓ Alert appeared
+
 ✓ `<script>` tag in HTML source (not `&lt;script&gt;`)
+
 ✓ No CSP headers
+
 ✓ Multiple payloads triggered alerts
+
 Conclusion: Confirmed Vulnerable
 
 ---
@@ -272,13 +276,19 @@ Record exactly what you found for the report:
 
 ### Template:
 
--Vulnerability: XSS (Type: REFLECTED/STORED/DOM)
--URL: [exact vulnerable URL]
--Parameter: [which field is vulnerable]
--Payload: [exact payload used]
--Context: [HTML body/attribute/JavaScript/URL]
--Severity: [HIGH/MEDIUM/LOW]
--Screenshot: [attach proof]
+Vulnerability: XSS (Type: REFLECTED/STORED/DOM)
+
+URL: [exact vulnerable URL]
+
+Parameter: [which field is vulnerable]
+
+Payload: [exact payload used]
+
+Context: [HTML body/attribute/JavaScript/URL]
+
+Severity: [HIGH/MEDIUM/LOW]
+
+Screenshot: [attach proof]
 
 ### DVWA Documentation:
 
@@ -305,35 +315,47 @@ Real apps often have multiple layers:
 ### Test for Encoding:
 
 -Input:
+
 -Output: `&lt;`
+
 -Conclusion: HTML encoding active (safer)
 
 ### Test for Filtering:
 
 -Input: `<script>alert('XSS')</script>`
+
 -Output: `alert('XSS')` [ removed]
+
 -Conclusion: Tag filtering active
+
 -Try Bypass: `<img src=x onerror=alert('XSS')>`
 
 ### Test for WAF (Web Application Firewall):
 
 -Input: `<iframe src="javascript:alert('XSS')">`
+
 -Output: Error page or blocked
+
 -Conclusion: WAF present
+
 -Action: Try URL encoding, case variations, etc.
 
 ## COMMON MISTAKES TO AVOID
 
 ❌ Don't: Assume payload failed if alert doesn't pop
+
 ✅ Do: Check browser console (F12 → Console tab) for errors
 
 ❌ Don't: Give up after one payload
+
 ✅ Do: Try multiple payloads (see PAYLOAD_REFERENCE.md)
 
 ❌ Don't: Miss DOM XSS because you only test forms
+
 ✅ Do: Test URL parameters even if no form visible
 
 ❌ Don't: Stop at finding one XSS
+
 ✅ Do: Test ALL input fields systematically
 
 ## REAL DVWA TESTING WALKTHROUGH
@@ -354,15 +376,25 @@ Real apps often have multiple layers:
 ### Finding Stored XSS:
 
 1.Found form with "name" and "message" fields
+
 2.Tested with normal input "hello" → stored in DB
+
 3.Tested with "<" → appeared in output
+
 4.Context: HTML body (inside comment display)
+
 5.Payload:
+
 6.Submitted form → Alert popped immediately
+
 7.Determined: STORED (refreshing page re-triggers alert)
+
 8.Confirmed: Alert triggers for all users viewing page
+
 9.Documented: Form location, payload, persistent behavior
+
 10.Result: ✓ VULNERABLE
+
 
 ### Finding DOM XSS:
 
