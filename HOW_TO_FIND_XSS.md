@@ -257,11 +257,15 @@ Make sure it's really XSS, not something else:
 
 ### DVWA Confirmation:
 
-✓  Alert appeared
-✓  `<script>` tag in HTML source (not `&lt;script&gt;`)
-✓  No CSP headers
-✓  Multiple payloads triggered alerts
-   Conclusion: Confirmed Vulnerable
+✓ Alert appeared
+
+✓ `<script>` tag in HTML source (not `&lt;script&gt;`)
+
+✓ No CSP headers
+
+✓ Multiple payloads triggered alerts
+
+Conclusion: Confirmed Vulnerable
 
 ---
 
