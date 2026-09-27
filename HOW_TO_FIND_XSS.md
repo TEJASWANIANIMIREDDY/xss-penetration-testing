@@ -170,13 +170,10 @@ Does alert pop up? → VULNERABLE ✓
 
 ### DVWA Testing:
 
-Payload: `<script>alert('XSS')</script>`
-  
-Method: URL parameter
-
-Result: Alert box appeared
-
-Conclusion: VULNERABLE
+- Payload: `<script>alert('XSS')</script>`
+- Method: URL parameter
+- Result: Alert box appeared
+- Conclusion: VULNERABLE
 
 ---
 
@@ -220,6 +217,7 @@ Payload in server response: YES
 
 Type: REFLECTED ✓
 
+
 **Stored:**
 
 Form: Name + Message
@@ -231,6 +229,7 @@ Result: Alert on page reload for all users
 Payload in database: YES
 
 Type: STORED ✓
+
 
 **DOM:**
 
@@ -258,15 +257,11 @@ Make sure it's really XSS, not something else:
 
 ### DVWA Confirmation:
 
-✓ Alert appeared
-
-✓ `<script>` tag in HTML source (not `&lt;script&gt;`)
-
-✓ No CSP headers
-
-✓ Multiple payloads triggered alerts
-
-Conclusion: Confirmed Vulnerable
+✓  Alert appeared
+✓  `<script>` tag in HTML source (not `&lt;script&gt;`)
+✓  No CSP headers
+✓  Multiple payloads triggered alerts
+   Conclusion: Confirmed Vulnerable
 
 ---
 
@@ -276,35 +271,23 @@ Record exactly what you found for the report:
 
 ### Template:
 
-Vulnerability: XSS (Type: REFLECTED/STORED/DOM)
-
-URL: [exact vulnerable URL]
-
-Parameter: [which field is vulnerable]
-
-Payload: [exact payload used]
-
-Context: [HTML body/attribute/JavaScript/URL]
-
-Severity: [HIGH/MEDIUM/LOW]
-
-Screenshot: [attach proof]
+- Vulnerability: XSS (Type: REFLECTED/STORED/DOM)
+- URL: [exact vulnerable URL]
+- Parameter: [which field is vulnerable]
+- Payload: [exact payload used]
+- Context: [HTML body/attribute/JavaScript/URL]
+- Severity: [HIGH/MEDIUM/LOW]
+- Screenshot: [attach proof]
 
 ### DVWA Documentation:
 
-Vulnerability: Reflected XSS
-
-URL: `http://dvwa.local/vulnerabilities/xss_r/?name=%3Cscript%3Ealert('XSS')%3C/script%3E`
-
-Parameter: name
-
-Payload: `<script>alert('XSS')</script>`
-
-Context: HTML body (inside `<pre>` tag)
-
-Severity: MEDIUM (requires user to click link)
-
-Screenshot: alert_box.png, burp_response.png
+- Vulnerability: Reflected XSS
+- URL: `http://dvwa.local/vulnerabilities/xss_r/?name=%3Cscript%3Ealert('XSS')%3C/script%3E`
+- Parameter: name
+- Payload: `<script>alert('XSS')</script>`
+- Context: HTML body (inside `<pre>` tag)
+- Severity: MEDIUM (requires user to click link)
+- Screenshot: alert_box.png, burp_response.png
 
 ---
 
