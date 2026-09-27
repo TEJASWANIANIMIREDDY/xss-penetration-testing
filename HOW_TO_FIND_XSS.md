@@ -314,31 +314,23 @@ Real apps often have multiple layers:
 
 ### Test for Encoding:
 
--Input:
-
--Output: `&lt;`
-
--Conclusion: HTML encoding active (safer)
+- Input:
+- Output: `&lt;`
+- Conclusion: HTML encoding active (safer)
 
 ### Test for Filtering:
 
--Input: `<script>alert('XSS')</script>`
-
--Output: `alert('XSS')` [ removed]
-
--Conclusion: Tag filtering active
-
--Try Bypass: `<img src=x onerror=alert('XSS')>`
+- Input: `<script>alert('XSS')</script>`
+- Output: `alert('XSS')` [ removed]
+- Conclusion: Tag filtering active
+- Try Bypass: `<img src=x onerror=alert('XSS')>`
 
 ### Test for WAF (Web Application Firewall):
 
--Input: `<iframe src="javascript:alert('XSS')">`
-
--Output: Error page or blocked
-
--Conclusion: WAF present
-
--Action: Try URL encoding, case variations, etc.
+- Input: `<iframe src="javascript:alert('XSS')">`
+- Output: Error page or blocked
+- Conclusion: WAF present
+- Action: Try URL encoding, case variations, etc.
 
 ## COMMON MISTAKES TO AVOID
 
@@ -404,25 +396,15 @@ Real apps often have multiple layers:
 
 ## SUMMARY: THE XSS HUNTING PROCESS
 
--Find input fields → Identify ALL places users can input data
-
--Test normal input → Understand how app processes data
-
--Test special chars → See if anything breaks
-
--Identify context → Where does input appear? (body/attr/JS)
-
--Choose payload → Match payload to context
-
--Test payload → Does it execute?
-
--Determine type → Reflected/Stored/DOM?
-
--Confirm vulnerable → Multiple proofs, not just luck
-
--Document it → Full details for report
-
--Look for defenses → What stops you? Can you bypass?
-
+- Find input fields → Identify ALL places users can input data
+- Test normal input → Understand how app processes data
+- Test special chars → See if anything breaks
+- Identify context → Where does input appear? (body/attr/JS)
+- Choose payload → Match payload to context
+- Test payload → Does it execute?
+- Determine type → Reflected/Stored/DOM?
+- Confirm vulnerable → Multiple proofs, not just luck
+- Document it → Full details for report
+- Look for defenses → What stops you? Can you bypass?
 
 Apply this process to ANY web app and you'll find XSS!(if present) ✓
